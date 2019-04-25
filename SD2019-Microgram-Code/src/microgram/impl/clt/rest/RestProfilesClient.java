@@ -19,7 +19,7 @@ import microgram.api.java.Result;
 import microgram.api.java.Result.ErrorCode;
 import microgram.api.rest.RestProfiles;
 
-//CLASSE POR FAZER
+//CLASSE POR FAZER!!!!!
 public abstract class RestProfilesClient extends RestClient implements Profiles {
 
 	Map<String,Profile> profiles = new HashMap<String,Profile>();
