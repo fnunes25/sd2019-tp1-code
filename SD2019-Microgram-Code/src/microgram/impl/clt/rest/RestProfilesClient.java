@@ -20,27 +20,29 @@ import microgram.api.java.Result.ErrorCode;
 import microgram.api.rest.RestProfiles;
 
 //CLASSE POR FAZER!!!!!
+//ERROS NOT_FOUND NAO SEI SE È SUPOSTO IR BUSCAR A OUTRA CLASSE
 public abstract class RestProfilesClient extends RestClient implements Profiles {
 
-	Map<String,Profile> profiles = new HashMap<String,Profile>();
-	
+	Map<String, Profile> profiles;
+
 	public RestProfilesClient(URI serverUri) {
 		super(serverUri, RestProfiles.PATH);
+		profiles = new HashMap<String, Profile>();
+	}
+
+	public Map<String, Profile> getAllProfiles() {
+		return profiles;
 	}
 
 	@Override
 	public Result<Profile> getProfile(String userId) {
-		
-		//NAO SEI TRABALHAR COM ESTA PORRA
-		Response r = target.path(userId)
-				.request()
-				.accept(MediaType.APPLICATION_JSON)
-				.get();
-		
-		return super.responseContents(r, Status.OK, new GenericType<Profile>() {});
+
+		// NAO SEI TRABALHAR COM ESTA PORRA
+		Response r = target.path(userId).request().accept(MediaType.APPLICATION_JSON).get();
+
+		return super.responseContents(r, Status.OK, new GenericType<Profile>() {
+		});
 	}
-	
-	
 
 	/**
 	 * Creates a profile
@@ -48,18 +50,16 @@ public abstract class RestProfilesClient extends RestClient implements Profiles 
 	 * @param profile to be created
 	 * @return result of (OK,), or CONFLICT
 	 */
-	public Result<Void> createProfile(Profile profile){
-		
+	public Result<Void> createProfile(Profile profile) {
+
 		String userId = profile.getUserId();
-		//verificar se ja existe no mapa o user
-		if(profiles.containsKey(userId)) {
+
+		if (profiles.containsKey(userId)) {
 			return Result.error(CONFLICT);
-		}else {
+		} else {
 			profiles.put(userId, profile);
 			return Result.ok();
 		}
-		
-		
 	}
 
 	/**
@@ -68,14 +68,13 @@ public abstract class RestProfilesClient extends RestClient implements Profiles 
 	 * @param userId identifier of the profile to be deleted
 	 * @return result of (OK,), or NOT_FOUND
 	 */
-	public Result<Void> deleteProfile(String userId){
-		
-		if(profiles.remove(userId) != null) {
+	public Result<Void> deleteProfile(String userId) {
+
+		if (profiles.remove(userId) != null) {
 			return Result.ok();
-		}else {
+		} else {
 			return Result.error(NOT_FOUND);
 		}
-		
 	}
 
 	/**
@@ -85,17 +84,15 @@ public abstract class RestProfilesClient extends RestClient implements Profiles 
 	 * @return result of (OK, List<Profile>); an empty list if the search yields no
 	 *         profiles
 	 */
-	public Result<List<Profile>> search(String prefix){
-		List<Profile> profilesPrefix =new ArrayList<Profile>(); 
+	public Result<List<Profile>> search(String prefix) {
+		List<Profile> profilesPrefix = new ArrayList<Profile>();
 		for (Map.Entry<String, Profile> entry : profiles.entrySet()) {
 			Profile profile = entry.getValue();
-		   if (profile.getUserId().startsWith(prefix)) {
-			   profilesPrefix.add(profile);
-		   }
+			if (profile.getUserId().startsWith(prefix)) {
+				profilesPrefix.add(profile);
+			}
 		}
 		return Result.ok(profilesPrefix);
-		
-		
 	}
 
 	/**
@@ -108,18 +105,21 @@ public abstract class RestProfilesClient extends RestClient implements Profiles 
 	 *                    operation
 	 * @return (OK,), NOT_FOUND if any of the profiles does not exist
 	 */
-	public Result<Void> follow(String userId1, String userId2, boolean isFollowing){
+	public Result<Void> follow(String userId1, String userId2, boolean isFollowing) {
 		Profile profile1 = profiles.get(userId1);
-		Profile profile2 = profiles.get(userId2); 
-		
-		if(profile1 != null && profile2 != null) {
-			//NAO TENHO DE TER UMA LISTA DE QUEM SEGUE??
+		Profile profile2 = profiles.get(userId2);
+
+		if (profile1 != null && profile2 != null) {
 			int following = profile1.getFollowing();
 			int followers = profile2.getFollowers();
-			if(isFollowing) {
+			if (isFollowing) {
+				profile1.startFollowing(profile2);
+				profile2.newFollower(profile1);
 				profile1.setFollowing(following + 1);
 				profile2.setFollowers(followers + 1);
 			} else {
+				profile1.stopFollowing(profile2);
+				profile2.loseFollower(profile1);
 				profile1.setFollowing(following - 1);
 				profile2.setFollowers(followers - 1);
 			}
@@ -136,27 +136,18 @@ public abstract class RestProfilesClient extends RestClient implements Profiles 
 	 * @param userId2 the followed profile
 	 * @return (OK,Boolean), NOT_FOUND if any of the profiles does not exist
 	 */
-	public Result<Boolean> isFollowing(String userId1, String userId2){
-		//TENHO DE TER UMA LISTA DE FOLLOWERS??
+	public Result<Boolean> isFollowing(String userId1, String userId2) {
+
 		Profile profile1 = profiles.get(userId1);
-		Profile profile2 = profiles.get(userId2); 
-		
-		if(profile1 != null && profile2 != null) {
-			if() {
-				
-				
-			}
-			return Result.ok();
+		Profile profile2 = profiles.get(userId2);
+
+		if (profile1 != null && profile2 != null) {
+			return Result.ok(profile1.isFolowing(profile2));
+
 		} else {
 			return Result.error(NOT_FOUND);
 		}
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

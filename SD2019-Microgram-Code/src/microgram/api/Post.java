@@ -1,26 +1,32 @@
 package microgram.api;
 
+import java.util.List;
+
 /**
  * Represents a Post.
  * 
- * A post has an unique postId and a single ownerId profile; comprises of an image, taken at some location and stored at some mediaurl; it is timestamped.
- * A post also has a number of likes, which can increase or decrease over time. It is the only piece of information that is mutable.
- *  
+ * A post has an unique postId and a single ownerId profile; comprises of an
+ * image, taken at some location and stored at some mediaurl; it is timestamped.
+ * A post also has a number of likes, which can increase or decrease over time.
+ * It is the only piece of information that is mutable.
+ * 
  * @author smd
  *
  */
 public class Post {
-	
+
 	String postId;
 	String ownerId;
 	String mediaUrl;
 	String location;
 	long timestamp;
-	
+
+	List<String> allLikes;
+
 	int likes;
 
-	public Post() {}
-
+	public Post() {
+	}
 
 	public Post(String postId, String ownerId, String mediaUrl, String location, long timestamp, int likes) {
 		this.postId = postId;
@@ -30,10 +36,11 @@ public class Post {
 		this.timestamp = timestamp;
 		this.likes = likes;
 	}
-	
+
 	public String getMediaUrl() {
 		return mediaUrl;
 	}
+
 	public String getLocation() {
 		return location;
 	}
@@ -41,11 +48,11 @@ public class Post {
 	public int getLikes() {
 		return likes;
 	}
-	
+
 	public String getPostId() {
 		return postId;
 	}
-	
+
 	public String getOwnerId() {
 		return ownerId;
 	}
@@ -57,7 +64,7 @@ public class Post {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	public void setPostId(String postId) {
 		this.postId = postId;
 	}
@@ -77,4 +84,25 @@ public class Post {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
+
+	// NOVO
+	public void addLike(String userId) {
+		allLikes.add(userId);
+	}
+
+	// NOVO
+	public void removeLike(String userId) {
+		allLikes.remove(userId);
+	}
+
+	// NOVO
+	public List<String> getAllLikes() {
+		return allLikes;
+	}
+
+	// NOVO
+	public boolean hasLikeOf(String userId) {
+		return allLikes.contains(userId);
+	}
+
 }
