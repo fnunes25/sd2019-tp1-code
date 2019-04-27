@@ -1,7 +1,5 @@
 package microgram.api;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a user Profile
@@ -24,8 +22,7 @@ public class Profile {
 	int posts;
 	int following;
 	int followers;
-	List<Profile> allFollowing;
-	List<Profile> allFollowers;
+	
 
 	public Profile() {
 	}
@@ -37,8 +34,6 @@ public class Profile {
 		this.posts = posts;
 		this.following = following;
 		this.followers = followers;
-		allFollowing = new ArrayList<Profile>();
-		allFollowers = new ArrayList<Profile>();
 
 	}
 
@@ -88,41 +83,6 @@ public class Profile {
 
 	public void setFollowers(int followers) {
 		this.followers = followers;
-	}
-
-	// NOVO
-	public void startFollowing(Profile profile) {
-		allFollowing.add(profile);
-	}
-
-	// NOVO
-	public void newFollower(Profile profile) {
-		allFollowers.add(profile);
-	}
-
-	// NOVO
-	public void stopFollowing(Profile profile) {
-		allFollowing.remove(profile);
-	}
-
-	// NOVO
-	public void loseFollower(Profile profile) {
-		allFollowers.remove(profile);
-	}
-
-	// NOVO
-	public List<Profile> allFollowers() {
-		return allFollowers;
-	}
-	
-	// NOVO
-	public List<Profile> allFollowing() {
-		return allFollowing;
-	}
-	
-	//NOVO
-	public boolean isFolowing(Profile profile) {
-		return allFollowers.contains(profile);
 	}
 
 }

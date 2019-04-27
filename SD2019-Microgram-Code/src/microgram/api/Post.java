@@ -1,7 +1,5 @@
 package microgram.api;
 
-import java.util.List;
-
 /**
  * Represents a Post.
  * 
@@ -21,7 +19,6 @@ public class Post {
 	String location;
 	long timestamp;
 
-	List<String> allLikes;
 
 	int likes;
 
@@ -83,26 +80,6 @@ public class Post {
 
 	public void setLikes(int likes) {
 		this.likes = likes;
-	}
-
-	// NOVO
-	public void addLike(String userId) {
-		allLikes.add(userId);
-	}
-
-	// NOVO
-	public void removeLike(String userId) {
-		allLikes.remove(userId);
-	}
-
-	// NOVO
-	public List<String> getAllLikes() {
-		return allLikes;
-	}
-
-	// NOVO
-	public boolean hasLikeOf(String userId) {
-		return allLikes.contains(userId);
 	}
 
 }
