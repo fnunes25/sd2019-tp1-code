@@ -1,5 +1,7 @@
 package microgram.impl.clt.rest;
 
+import static microgram.api.java.Result.ErrorCode.*;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,9 +49,9 @@ public abstract class RestPostsClient extends RestClient implements Posts {
 
 		Post post = posts.get(postId);
 		if (post != null) {
-			Result.ok(post);
+			return Result.ok(post);
 		} else {
-			Result.error(NOT_FOUND);
+			return Result.error(NOT_FOUND);
 		}
 
 	}
@@ -64,9 +66,9 @@ public abstract class RestPostsClient extends RestClient implements Posts {
 		Post post = posts.get(postId);
 		if (post != null) {
 			posts.remove(postId);
-			Result.ok();
+			return Result.ok();
 		} else {
-			Result.error(NOT_FOUND);
+			return Result.error(NOT_FOUND);
 		}
 
 	}
@@ -93,12 +95,12 @@ public abstract class RestPostsClient extends RestClient implements Posts {
 				} else {
 					post.removeLike(userId);
 				}
-				Result.ok();
+				return Result.ok();
 			} else {
-				Result.error(NOT_FOUND);
+				return Result.error(NOT_FOUND);
 			}
 		} else {
-			Result.error(NOT_FOUND);
+			return Result.error(NOT_FOUND);
 		}
 
 	}
@@ -115,7 +117,7 @@ public abstract class RestPostsClient extends RestClient implements Posts {
 		if(post != null) {
 		return Result.ok(post.hasLikeOf(userId));
 		} else {
-			Result.error(NOT_FOUND);
+			return Result.error(NOT_FOUND);
 		}
 	}
 
@@ -153,7 +155,8 @@ public abstract class RestPostsClient extends RestClient implements Posts {
 	 *         known
 	 */
 	public Result<List<String>> getFeed(String userId) {
-
+		
+		return null;
 	}
 
 }

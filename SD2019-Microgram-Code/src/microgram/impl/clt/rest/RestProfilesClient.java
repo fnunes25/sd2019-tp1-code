@@ -1,6 +1,6 @@
 package microgram.impl.clt.rest;
 
-import static microgram.api.java.Result.ErrorCode.CONFLICT;
+import static microgram.api.java.Result.ErrorCode.*;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response.Status;
 import microgram.api.Profile;
 import microgram.api.java.Profiles;
 import microgram.api.java.Result;
-import microgram.api.java.Result.ErrorCode;
 import microgram.api.rest.RestProfiles;
 
 //CLASSE POR FAZER!!!!!
