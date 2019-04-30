@@ -29,10 +29,11 @@ public class ProfilesRestServer {
 
 		String ip = IP.hostAddress();
 		String serverURI = String.format(SERVER_BASE_URI, ip, PORT);
-		
+		URI uri = new URI(serverURI);
 		ResourceConfig config = new ResourceConfig();
 
-//		config.register(new _TODO_RestProfilesResources(serverURI)); TODO
+		
+		config.register(new RestProfilesResources(uri)); 
 		
 		JdkHttpServerFactory.createHttpServer( URI.create(serverURI.replace(ip, "0.0.0.0")), config);
 

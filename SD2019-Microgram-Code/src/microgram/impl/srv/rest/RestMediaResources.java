@@ -1,6 +1,11 @@
 package microgram.impl.srv.rest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
 
 import microgram.api.java.Result;
 import microgram.api.rest.RestMediaStorage;
@@ -36,5 +41,12 @@ public class RestMediaResources extends RestResource implements RestMediaStorage
 			throw new WebApplicationException( super.statusCode( result )) ;
  	}
 
+	@Override
+	public void delete(String id) throws IOException {
+		Result<Void> result = impl.delete( id );
+		if( !result.isOK() )
+			throw new WebApplicationException( super.statusCode( result )) ;
+		
+	}
 	
 }

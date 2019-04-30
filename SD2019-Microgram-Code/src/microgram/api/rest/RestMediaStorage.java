@@ -1,6 +1,9 @@
 package microgram.api.rest;
 
+import java.io.IOException;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -28,5 +31,9 @@ public interface RestMediaStorage {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	byte[] download(@PathParam("id") String id);
+
+	@DELETE
+	@Path("/{id}")
+	void delete(@PathParam("id")  String id) throws IOException;
 }
 

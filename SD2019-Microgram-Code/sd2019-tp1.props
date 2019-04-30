@@ -1,11 +1,11 @@
-posts-rest-service-mainclass=
-posts-rest-service-port=
+posts-rest-service-mainclass=microgram.impl.srv.rest.PostsRestServer
+posts-rest-service-port=7777
 
-profiles-rest-service-mainclass=
-profiles-rest-service-port=
+profiles-rest-service-mainclass= microgram.impl.srv.rest.ProfilesRestServer
+profiles-rest-service-port=7777
 
 mediastorage-rest-service-mainclass=microgram.impl.srv.rest.RestMediaStorageServer
-mediastorage-rest-service-port=9999
+mediastorage-rest-service-port=8877
 
 posts-soap-service-mainclass=
 posts-soap-service-port=
@@ -16,3 +16,9 @@ profiles-soap-service-port=
 discovery-multicast-address=226.226.226.226:2266
 
 uses-kafka-bool=false
+
+
+
+
+
+

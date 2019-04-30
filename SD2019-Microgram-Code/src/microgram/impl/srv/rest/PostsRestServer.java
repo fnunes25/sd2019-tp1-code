@@ -30,9 +30,11 @@ public class PostsRestServer {
 		String ip = IP.hostAddress();
 		String serverURI = String.format(SERVER_BASE_URI, ip, PORT);
 		
+		URI uri = new URI(serverURI);
 		ResourceConfig config = new ResourceConfig();
 
-//		config.register(new _TODO_RestPostsResources(serverURI)); TODO
+		
+		config.register(new RestPostsResources(uri)); 
 		
 		JdkHttpServerFactory.createHttpServer( URI.create(serverURI.replace(ip, "0.0.0.0")), config);
 

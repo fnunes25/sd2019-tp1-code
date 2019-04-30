@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import microgram.api.Post;
+import microgram.api.Profile;
 import microgram.api.java.Posts;
 import microgram.api.java.Result;
 import microgram.api.java.Result.ErrorCode;
@@ -37,7 +39,19 @@ public class JavaPosts implements Posts {
 
 	@Override
 	public Result<Void> deletePost(String postId) {
-		return Result.error(ErrorCode.NOT_IMPLEMENTED);
+		Post post = posts.get(postId);
+
+		if (post == null) {
+			return Result.error(NOT_FOUND);
+		}
+
+		String owner = post.getOwnerId();
+		likes.remove(postId);
+		userPosts.get(owner).remove(postId);
+		posts.remove(postId);
+
+		return Result.ok();
+
 	}
 
 	@Override
@@ -96,6 +110,36 @@ public class JavaPosts implements Posts {
 
 	@Override
 	public Result<List<String>> getFeed(String userId) {
-		return error(NOT_IMPLEMENTED);
+		
+		
+		JavaProfiles profiles = new JavaProfiles();
+		Profile profile = profiles.users.get(userId);
+		if(profile == null) {
+			return Result.error(NOT_FOUND);
+		}
+		
+		List<String> feed = new LinkedList<String>();
+		for ( String entry : profiles.following.get(profile.getUserId())) {
+			feed.addAll(userPosts.get(entry));
+		}
+		
+		return Result.ok(feed);
+		
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

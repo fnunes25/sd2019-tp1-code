@@ -1,5 +1,7 @@
 package microgram.api.java;
 
+import java.io.IOException;
+
 /**
  * Interface of the media storage service...
  */
@@ -18,5 +20,7 @@ public interface Media {
 	 * @return the bytes that comprise the contents of the media resource, or NOT_FOUND
 	 */
 	Result<byte[]> download(String id);
+
+	Result<Void> delete(String id) throws IOException;
 }
 

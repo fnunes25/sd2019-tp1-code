@@ -46,4 +46,9 @@ public  class RestProfilesResources extends RestResource implements RestProfiles
 	public boolean isFollowing(String userId1, String userId2) {
 		return super.resultOrThrow( impl.isFollowing(userId1,userId2));
 	}	
+	
+	public void deleteProfile(String userId) {
+		 super.resultOrThrow(impl.deleteProfile(userId));
+	}
+
 }
