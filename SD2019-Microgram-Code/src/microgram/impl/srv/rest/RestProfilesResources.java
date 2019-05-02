@@ -3,6 +3,9 @@ package microgram.impl.srv.rest;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
+
+import javax.ws.rs.PathParam;
 
 import microgram.api.Profile;
 import microgram.api.java.Profiles;
@@ -50,5 +53,12 @@ public  class RestProfilesResources extends RestResource implements RestProfiles
 	public void deleteProfile(String userId) {
 		 super.resultOrThrow(impl.deleteProfile(userId));
 	}
+
+	@Override
+	public Set<String> getAllFollowers(String userId) {
+		return  super.resultOrThrow(impl.getAllFollowers(userId));
+	}
+	
+	
 
 }

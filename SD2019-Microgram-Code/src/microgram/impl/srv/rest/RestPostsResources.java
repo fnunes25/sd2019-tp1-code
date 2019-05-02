@@ -1,7 +1,10 @@
 package microgram.impl.srv.rest;
 
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Set;
 
 import microgram.api.Post;
 import microgram.api.java.Posts;
@@ -14,7 +17,7 @@ public class RestPostsResources extends RestResource implements RestPosts {
 
 	final Posts impl;
 		
-	public RestPostsResources(URI serverUri) {
+	public RestPostsResources(URI serverUri) throws IOException, URISyntaxException {
 		this.impl = new JavaPosts();
 	}
 	
@@ -32,6 +35,7 @@ public class RestPostsResources extends RestResource implements RestPosts {
 	@Override
 	public String createPost(Post post) {
 		return super.resultOrThrow(impl.createPost(post));
+
 	}
 
 	@Override

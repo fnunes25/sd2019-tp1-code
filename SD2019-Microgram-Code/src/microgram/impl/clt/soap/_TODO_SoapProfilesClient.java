@@ -2,6 +2,8 @@ package microgram.impl.clt.soap;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 
 import microgram.api.Profile;
 import microgram.api.java.Profiles;
@@ -49,5 +51,13 @@ public class _TODO_SoapProfilesClient extends SoapClient implements Profiles {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Result<Set<String>> getAllFollowers(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

@@ -1,6 +1,8 @@
 package microgram.api.java;
 
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import microgram.api.Post;
@@ -25,6 +27,8 @@ public interface Posts {
 	 * Stores a new post, generating and returning its unique identifier.
 	 * @param post the post to be created
 	 * @return (OK, PostId), or (NOT FOUND) if the owner of the post does not exist.
+	 * @throws URISyntaxException 
+	 * @throws IOException 
 	 */
 	Result<String> createPost( Post post );
 	

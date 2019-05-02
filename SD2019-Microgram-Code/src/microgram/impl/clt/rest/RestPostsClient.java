@@ -71,7 +71,7 @@ public class RestPostsClient extends RestClient implements Posts {
 
 	@Override
 	public Result<List<String>> getPosts(String userId) {
-		Response r = target.path(userId).path(userId).request().accept(MediaType.APPLICATION_JSON).get();
+		Response r = target.path("from").path(userId).request().accept(MediaType.APPLICATION_JSON).get();
 
 		return super.responseContents(r, Status.OK, new GenericType<List<String>>() {
 		});	
@@ -79,10 +79,12 @@ public class RestPostsClient extends RestClient implements Posts {
 
 	@Override
 	public Result<List<String>> getFeed(String userId) {
-		Response r = target.path(userId).path(userId).request().accept(MediaType.APPLICATION_JSON).get();
+		Response r = target.path("feed").path(userId).request().accept(MediaType.APPLICATION_JSON).get();
 
 		return super.responseContents(r, Status.OK, new GenericType<List<String>>() {
 		});	
 	}
+
+
 
 }

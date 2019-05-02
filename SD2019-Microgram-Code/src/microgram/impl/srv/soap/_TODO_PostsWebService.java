@@ -1,5 +1,7 @@
 package microgram.impl.srv.soap;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import microgram.api.Post;
@@ -13,7 +15,7 @@ public class _TODO_PostsWebService extends SoapService implements SoapPosts {
 
 	final Posts impl;
 	
-	protected _TODO_PostsWebService() {
+	protected _TODO_PostsWebService()  {
 		this.impl = new JavaPosts();
 	}
 

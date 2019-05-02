@@ -1,6 +1,8 @@
 package microgram.api.java;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 
 import microgram.api.Profile;
 
@@ -64,4 +66,9 @@ public interface Profiles {
 	 * @return (OK,Boolean), NOT_FOUND if any of the profiles does not exist
 	 */
 	Result<Boolean> isFollowing(String userId1, String userId2);
+
+	
+	
+	Result<Set<String>> getAllFollowers(String userId);
+
 }

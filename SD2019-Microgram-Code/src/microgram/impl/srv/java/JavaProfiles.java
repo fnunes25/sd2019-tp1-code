@@ -5,32 +5,78 @@ import static microgram.api.java.Result.ok;
 import static microgram.api.java.Result.ErrorCode.CONFLICT;
 import static microgram.api.java.Result.ErrorCode.NOT_FOUND;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
+import discovery.Discovery;
 import microgram.api.Profile;
 import microgram.api.java.Result;
 import microgram.api.java.Result.ErrorCode;
+import microgram.impl.clt.rest.RestPostsClient;
+import microgram.impl.clt.rest.RestProfilesClient;
+import microgram.impl.srv.rest.PostsRestServer;
+import microgram.impl.srv.rest.ProfilesRestServer;
 import microgram.impl.srv.rest.RestResource;
 
 public class JavaProfiles extends RestResource implements microgram.api.java.Profiles {
 
-	protected Map<String, Profile> users = new HashMap<>();
-	protected Map<String, Set<String>> followers = new HashMap<>();
-	protected Map<String, Set<String>> following = new HashMap<>();
+	protected ConcurrentMap<String, Profile> users = new ConcurrentHashMap<>();
+	protected ConcurrentMap<String, Set<String>> followers = new ConcurrentHashMap<>();
+	protected ConcurrentMap<String, Set<String>> following = new ConcurrentHashMap<>();
+
+	URI[] uri;
+
+	boolean firstTime = true;
+
+	public JavaProfiles() {
+		firstTime = false;
+
+	}
+
+	public void findPostsServer() {
+		try {
+			uri = Discovery.findUrisOf(PostsRestServer.SERVICE, 1);
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public Result<Profile> getProfile(String userId) {
+		if (firstTime == false) {
+			findPostsServer();
+			firstTime = true;
+		}
+
 		Profile res = users.get(userId);
 		if (res == null)
 			return error(NOT_FOUND);
 
+		RestPostsClient users = new RestPostsClient(uri[0]);
+
 		res.setFollowers(followers.get(userId).size());
 		res.setFollowing(following.get(userId).size());
+		
+		
+		try {
+			List<String> jjj = users.getPosts(userId).value();
+			res.setPosts(jjj.size());
+		} catch (Exception e) {
+		}
+
 		return ok(res);
 	}
 
@@ -50,27 +96,27 @@ public class JavaProfiles extends RestResource implements microgram.api.java.Pro
 		Profile res = users.get(userId);
 		if (res == null)
 			return error(NOT_FOUND);
-		
+
 		Set<String> listFollowers;
 		Set<String> listFollowing;
-		
+
+		users.remove(userId);
+
 		for (Map.Entry<String, Profile> entry : users.entrySet()) {
-			
+
 			listFollowers = followers.get(entry.getKey());
-			if (listFollowers.contains(res.getUserId())) {
-				listFollowers.remove(res.getUserId());
+			if (listFollowers.contains(userId)) {
+				listFollowers.remove(userId);
 				res.setFollowers(listFollowers.size());
 			}
 
 			listFollowing = following.get(entry.getKey());
-			if (listFollowing.contains(res.getUserId())) {
-				listFollowing.remove(res.getUserId());
+			if (listFollowing.contains(userId)) {
+				listFollowing.remove(userId);
 				res.setFollowing(listFollowing.size());
 			}
 
 		}
-
-		users.remove(userId);
 
 		return ok();
 
@@ -111,5 +157,10 @@ public class JavaProfiles extends RestResource implements microgram.api.java.Pro
 			return error(NOT_FOUND);
 		else
 			return ok(s1.contains(userId2) && s2.contains(userId1));
+	}
+
+	public Result<Set<String>> getAllFollowers(String userId) {
+
+		return ok(following.get(userId));
 	}
 }
