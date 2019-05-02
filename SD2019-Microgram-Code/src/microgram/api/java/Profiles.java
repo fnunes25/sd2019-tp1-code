@@ -2,7 +2,6 @@ package microgram.api.java;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import microgram.api.Profile;
 

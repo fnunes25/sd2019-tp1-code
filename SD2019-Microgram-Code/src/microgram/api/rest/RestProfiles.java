@@ -2,7 +2,6 @@ package microgram.api.rest;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,7 +15,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import microgram.api.Profile;
-import microgram.api.java.Result;
 
 /**
  * REST API of the Profiles service.

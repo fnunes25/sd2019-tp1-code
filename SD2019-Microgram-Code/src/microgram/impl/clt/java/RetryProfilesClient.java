@@ -2,13 +2,10 @@ package microgram.impl.clt.java;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import microgram.api.Profile;
 import microgram.api.java.Profiles;
 import microgram.api.java.Result;
-
-//CLASS POR FAZER
 
 public class RetryProfilesClient extends RetryClient implements Profiles {
 

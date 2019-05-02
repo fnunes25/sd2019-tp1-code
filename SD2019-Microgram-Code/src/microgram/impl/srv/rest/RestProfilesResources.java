@@ -5,16 +5,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.Set;
 
-import javax.ws.rs.PathParam;
-
 import microgram.api.Profile;
 import microgram.api.java.Profiles;
 import microgram.api.rest.RestProfiles;
 import microgram.impl.srv.java.JavaProfiles;
 
-//Make this class concrete.
 
-//CLASS POR FAZER
 public  class RestProfilesResources extends RestResource implements RestProfiles {
 
 	final Profiles impl;

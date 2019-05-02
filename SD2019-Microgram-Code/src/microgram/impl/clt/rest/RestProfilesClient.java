@@ -3,7 +3,6 @@ package microgram.impl.clt.rest;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -17,7 +16,6 @@ import microgram.api.java.Result;
 import microgram.api.rest.RestProfiles;
 import microgram.impl.srv.java.JavaProfiles;
 
-//CLASSE POR FAZER
 
 public class RestProfilesClient extends RestClient implements Profiles {
 	JavaProfiles profilesClass;
@@ -56,7 +54,6 @@ public class RestProfilesClient extends RestClient implements Profiles {
 	@Override
 	public Result<List<Profile>> search(String prefix) {
 
-		// NAO SEI SE ESTA BEM
 		Response r = target.queryParam("query", prefix).request().accept(MediaType.APPLICATION_JSON).get();
 
 		return super.responseContents(r, Status.OK, new GenericType<List<Profile>>() {
@@ -76,7 +73,6 @@ public class RestProfilesClient extends RestClient implements Profiles {
 	@Override
 	public Result<Boolean> isFollowing(String userId1, String userId2) {
 
-		// NAO SEI SE ESTA BEM
 		Response r = target.path(userId1).path("following").path(userId2).request().accept(MediaType.APPLICATION_JSON)
 				.get();
 

@@ -1,14 +1,12 @@
 package microgram.impl.clt.java;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.util.List;
 
 import microgram.api.Post;
 import microgram.api.java.Posts;
 import microgram.api.java.Result;
 
-//CLASS POR FAZER
 
 public class RetryPostsClient extends RetryClient implements Posts {
 

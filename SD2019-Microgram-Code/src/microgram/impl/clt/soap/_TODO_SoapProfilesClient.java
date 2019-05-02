@@ -3,8 +3,6 @@ package microgram.impl.clt.soap;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
-
 import microgram.api.Profile;
 import microgram.api.java.Profiles;
 import microgram.api.java.Result;

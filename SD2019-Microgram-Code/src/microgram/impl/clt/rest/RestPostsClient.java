@@ -14,9 +14,6 @@ import microgram.api.java.Posts;
 import microgram.api.java.Result;
 import microgram.api.rest.RestPosts;
 
-
-//CLASSE POR FAZER
-
 public class RestPostsClient extends RestClient implements Posts {
 
 	

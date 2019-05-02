@@ -8,7 +8,6 @@ import static microgram.api.java.Result.ErrorCode.NOT_FOUND;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +19,8 @@ import java.util.stream.Collectors;
 import discovery.Discovery;
 import microgram.api.Profile;
 import microgram.api.java.Result;
-import microgram.api.java.Result.ErrorCode;
 import microgram.impl.clt.rest.RestPostsClient;
-import microgram.impl.clt.rest.RestProfilesClient;
 import microgram.impl.srv.rest.PostsRestServer;
-import microgram.impl.srv.rest.ProfilesRestServer;
 import microgram.impl.srv.rest.RestResource;
 
 public class JavaProfiles extends RestResource implements microgram.api.java.Profiles {

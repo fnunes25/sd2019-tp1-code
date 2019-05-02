@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Set;
+
 
 import microgram.api.Post;
 import microgram.api.java.Posts;
 import microgram.api.rest.RestPosts;
 import microgram.impl.srv.java.JavaPosts;
 
-// Make this class concrete.
-//CLASS POR FAZER
 public class RestPostsResources extends RestResource implements RestPosts {
 
 	final Posts impl;

@@ -72,14 +72,12 @@ public class Discovery {
 		final InetAddress group = InetAddress.getByName("226.226.226.226");
 		try (MulticastSocket socket = new MulticastSocket(2266)) {
 			socket.joinGroup(group);
-
-			long startTime = System.currentTimeMillis();
-
+			
 			while (counterUris < minRepliesNeeded) {
 
 				byte[] buffer = new byte[MAX_DATAGRAM_SIZE];
 				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
-
+				
 				socket.setSoTimeout(5000);
 				socket.receive(request);
 
@@ -104,11 +102,6 @@ public class Discovery {
 			}
 
 		}
-
-		// set set so timeout antes do receive 5000 !!!!
-		// guadar empo ao entrar na funcao
-		// start time = time
-		// ver quanto tempo ja pasoou , so quremos etsra 5 seundos. entro 3
 
 		return finalArray;
 	}	

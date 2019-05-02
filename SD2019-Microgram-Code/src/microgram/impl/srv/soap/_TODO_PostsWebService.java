@@ -1,7 +1,6 @@
 package microgram.impl.srv.soap;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+
 import java.util.List;
 
 import microgram.api.Post;

@@ -5,21 +5,15 @@ import static microgram.api.java.Result.error;
 import static microgram.api.java.Result.ok;
 import static microgram.api.java.Result.ErrorCode.CONFLICT;
 import static microgram.api.java.Result.ErrorCode.NOT_FOUND;
-import static microgram.api.java.Result.ErrorCode.NOT_IMPLEMENTED;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -29,7 +23,6 @@ import microgram.api.Post;
 import microgram.api.Profile;
 import microgram.api.java.Posts;
 import microgram.api.java.Result;
-import microgram.api.java.Result.ErrorCode;
 import microgram.impl.clt.rest.RestProfilesClient;
 import microgram.impl.srv.rest.ProfilesRestServer;
 import utils.Hash;
@@ -40,7 +33,6 @@ public class JavaPosts implements Posts {
 	protected ConcurrentMap<String, Set<String>> likes = new ConcurrentHashMap<>();
 	protected ConcurrentMap<String, Set<String>> userPosts = new ConcurrentHashMap<>();
 	URI[] uri;
-
 
 	public JavaPosts() {
 		findProfileServer();
@@ -95,9 +87,8 @@ public class JavaPosts implements Posts {
 	public Result<String> createPost(Post post) {
 		String postId = Hash.of(post.getOwnerId(), post.getMediaUrl());
 
-		
 		RestProfilesClient users = new RestProfilesClient(uri[0]);
-		Result<Profile> user =users.getProfile(post.getOwnerId());
+		Result<Profile> user = users.getProfile(post.getOwnerId());
 
 		if (!user.isOK()) {
 			return Result.error(NOT_FOUND);
@@ -111,10 +102,6 @@ public class JavaPosts implements Posts {
 				userPosts.put(post.getOwnerId(), postsUser = new LinkedHashSet<>());
 
 			postsUser.add(postId);
-			
-			//users.deleteProfile(post.getOwnerId());
-			//users.createProfile(u);
-		
 		}
 		return ok(postId);
 
@@ -170,17 +157,14 @@ public class JavaPosts implements Posts {
 		}
 
 		List<String> feed = new LinkedList<String>();
-				
-	
+
 		Set<String> followers = users.getAllFollowers(userId).value();
-		for(String entry : followers) {
+		for (String entry : followers) {
 			feed.addAll(userPosts.get(entry));
 		}
 
 		return Result.ok(feed);
 
 	}
-	
-	
 
 }
